@@ -4,7 +4,14 @@ GGGGG OOOOO   FFFFF I SSSSS H   H !
 G     O   O   F     I S     H   H !
 G  GG O   O   FFF   I SSSSS HHHHH !
 G   G O   O   F     I     S H   H
-GGGGG OOOOO   F     I SSSSS H   H !""")
+GGGGG OOOOO   F     I SSSSS H   H !
+      """)
+
+#prints out prompts to obtain player names as part of welcome messages
+player_1_name = input('Welcome to the game of Go Fish! What is the name of player 1?')
+player_2_name = input('Let us grab an online opponent. Create a fun name for player 2?')
+start_game = input('Welcome ' + player_1_name + ' and ' + player_2_name+ '! ' +player_1_name + ' will go first (click enter).')
+deal_cards = input('The cards have been dealt!' + player_1_name + ', here are the cards in your deck. You currently have 0 matches. What rank are you requesting from' + player_2_name + '?')
 
 #card variables
 suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades']
@@ -18,4 +25,14 @@ for index in range(52): #for each index for a total of 52...
     kind = kinds[index % 13] # cycles through every 13 cards from ace to King
     card = [identity, suit, kind] # each card has an ID, suit, and kind associated with it
     deck.append(card) # the deck of cards is appended with the 52 cards created
-print(deck)
+# print(deck) run this line to make sure all 52 cards are correct
+
+# deal 7 cards to player 1
+import random # use random to randomize deck
+random.shuffle(deck)
+
+player_1_hand = deck[:7] # player 1 gets dealt the first 7 cards
+player_2_hand = deck[7:14] # player 2 gets dealt cards 8-14
+stock_pile = deck[14:] # stock pile is the remaining cards left
+
+# print(player_1_hand) check that player 1 was dealt 7 random cards
