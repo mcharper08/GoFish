@@ -1,4 +1,7 @@
-#prints "Go Fish!" at the start of the game
+import random
+import os
+
+# prints "Go Fish!" at the start of the game
 print("""
 GGGGG OOOOO   FFFFF I SSSSS H   H !
 G     O   O   F     I S     H   H !
@@ -10,8 +13,9 @@ GGGGG OOOOO   F     I SSSSS H   H !
 #prints out prompts to obtain player names as part of welcome messages
 player_1_name = input('Welcome to the game of Go Fish! What is the name of player 1?')
 player_2_name = input('Let us grab an online opponent. Create a fun name for player 2?')
-start_game = input('Welcome ' + player_1_name + ' and ' + player_2_name+ '! ' +player_1_name + ' will go first (click enter).')
-deal_cards = input('The cards have been dealt!' + player_1_name + ', here are the cards in your deck. You currently have 0 matches. What rank are you requesting from' + player_2_name + '?')
+input('Welcome ' + player_1_name + ' and ' + player_2_name+ '! ' +player_1_name + ' will go first (click Enter).')
+player_1_matches = 0
+input('The cards have been dealt!' + player_1_name + ', here are the cards in your deck. You currently have player_1_matches matches.') 
 
 #card variables
 suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades']
@@ -35,4 +39,29 @@ player_1_hand = deck[:7] # player 1 gets dealt the first 7 cards
 player_2_hand = deck[7:14] # player 2 gets dealt cards 8-14
 stock_pile = deck[14:] # stock pile is the remaining cards left
 
-# print(player_1_hand) check that player 1 was dealt 7 random cards
+# clears the screen of displaying cards
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+#displays player 1's cards
+def display_hands(player_name, hand):
+    clear_console()
+    input(f"{player_name}, click Enter to see your hand")
+    print(f'{player_name}'s hand is: {hand})
+    input(f"{player_name} press Enter when done viewing")
+    clear_console()
+
+#checks for matches and updates hand to display what has no match yet
+def matches_check(hand):
+    matches = [] #creates open list for matches
+    kinds_in_hand = [card[2] for card in hand] #checks the third set of data in the hand of cards and makes a list of each kind
+    for kind in kinds:
+        if kinds_in_hand.count(kind)==4 #checks if 4 of a kind are in hand to lay down matches
+        matches.append(kind) #adds the matches to the open list matches
+    for match in matches:
+        hand[:] = [card for card in hand if card[2] != match] # updates hand with cards that are not matches
+    return matches
+
+#establish the game of go fish using a loop
+
+
