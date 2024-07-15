@@ -12,10 +12,10 @@ GGGGG OOOOO   F     I SSSSS H   H !
 
 #prints out prompts to obtain player names as part of welcome messages
 player_1_name = input('Welcome to the game of Go Fish! What is the name of player 1?')
-input('Let us grab a random online opponent.')
+player_2_name = input('Thanks! Player 2, what is your name?')
 input('Welcome ' + player_1_name + ' and your opponent! ' +player_1_name + ' will go first (click Enter).')
 player_1_matches = 0
-input('The cards have been dealt!' + player_1_name + ', here are the cards in your deck. You currently have player_1_matches matches.') 
+player_2_matches = 0
 
 #card variables
 suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades']
@@ -47,7 +47,7 @@ def clear_console():
 def display_hands(player_name, hand):
     clear_console()
     input(f"{player_name}, click Enter to see your hand")
-    print(f'{player_name}'s hand is: {hand})
+    print(f"{player_name}'s hand is: {hand}")
     input(f"{player_name} press Enter when done viewing")
     clear_console()
 
@@ -56,8 +56,8 @@ def matches_check(hand):
     matches = [] #creates open list for matches
     kinds_in_hand = [card[2] for card in hand] #checks the third set of data in the hand of cards and makes a list of each kind
     for kind in kinds:
-        if kinds_in_hand.count(kind)==4 #checks if 4 of a kind are in hand to lay down matches
-        matches.append(kind) #adds the matches to the open list matches
+        if kinds_in_hand.count(kind)==4: #checks if 4 of a kind are in hand to lay down matches
+            matches.append(kind) #adds the matches to the open list matches
     for match in matches:
         hand[:] = [card for card in hand if card[2] != match] # updates hand with cards that are not matches
     return matches
@@ -80,15 +80,10 @@ def turn(player_name, player_hand, opponent_hand):
             print("Go Fish!") #if the requested kind is not in the opponent's hand
             go_fish(player_name, player_hand) #the player must pick from the stock pile 
 
+#create matches to keep track of the game
+player_1_matches = []
+player_2_matches = []
 
-
-
-
-
-
-
-
-
-#establish the game of go fish using a loop
+#establish the game of go fish using a while loop
 
 
