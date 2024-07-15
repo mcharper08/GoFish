@@ -12,8 +12,8 @@ GGGGG OOOOO   F     I SSSSS H   H !
 
 #prints out prompts to obtain player names as part of welcome messages
 player_1_name = input('Welcome to the game of Go Fish! What is the name of player 1?')
-player_2_name = input('Let us grab an online opponent. Create a fun name for player 2?')
-input('Welcome ' + player_1_name + ' and ' + player_2_name+ '! ' +player_1_name + ' will go first (click Enter).')
+input('Let us grab a random online opponent.')
+input('Welcome ' + player_1_name + ' and your opponent! ' +player_1_name + ' will go first (click Enter).')
 player_1_matches = 0
 input('The cards have been dealt!' + player_1_name + ', here are the cards in your deck. You currently have player_1_matches matches.') 
 
@@ -61,6 +61,33 @@ def matches_check(hand):
     for match in matches:
         hand[:] = [card for card in hand if card[2] != match] # updates hand with cards that are not matches
     return matches
+
+def go_fish(player_name, hand):
+    if stock_pile:
+        new_card=stock_pile.pop(0) #grabs the first card from the stock pile if opponent says go fish
+        hand.append(new_card)
+        print(f"{player_name} went fish and drew a {new_card[2]} of {new_card[1]}")
+
+def turn(player_name, player_hand, opponent_hand):
+    display_hands(player_name, player_hand) #show the current player their hand
+    do_you_have = input(f"{player_name}, what kind are you asking from your opponent?") #ask the player what card they would like from their opponent
+    opponent_kinds = [card[2] for card in opponent_hand] #searches opponent's hand for kinds
+    for card in opponent_hand:
+        if card[2] == do_you_have: #if requested kind is a match in the opponent's hand...
+            player_hand.append(card) #the player gets the card
+            opponent_hand.remove(card) #the opponent loses the card
+        else:
+            print("Go Fish!") #if the requested kind is not in the opponent's hand
+            go_fish(player_name, player_hand) #the player must pick from the stock pile 
+
+
+
+
+
+
+
+
+
 
 #establish the game of go fish using a loop
 
