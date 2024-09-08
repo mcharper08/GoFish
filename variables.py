@@ -15,29 +15,30 @@ player_1_name = input('Welcome to the game of Go Fish! What is the name of playe
 player_2_name = input('Thanks! Player 2, what is your name?')
 input('Welcome ' + player_1_name + ' and your opponent! ' +player_1_name + ' will go first (click Enter).')
 player_1_matches = 0
-player_2_matches = 0
+player_2_matches = 0    
 
-#card variables
-suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades']
-kinds = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+class Deck:
+    def __init__(self):
+        suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades']
+        kinds = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+        self.cards = [[identity + 1, suits[identity // 13], kinds[identity % 13]] for identity in range(52)]
+        random.shuffle(self.cards)
+    
+    def shuffle(self):
+        random.shuffle(self.cards)
 
-#create nested list named deck that has an identity 1-52 for each card suit and kind
-deck = [] #open list for editing
-for index in range(52): #for each index for a total of 52...
-    identity = index+1 # each cards identity is based on a number from 1-52
-    suit = suits[index // 13] # every 13 cards will be a different suit, 4 suits total
-    kind = kinds[index % 13] # cycles through every 13 cards from ace to King
-    card = [identity, suit, kind] # each card has an ID, suit, and kind associated with it
-    deck.append(card) # the deck of cards is appended with the 52 cards created
-# print(deck) run this line to make sure all 52 cards are correct
+    def deal(self, num_cards):
+        return [self.cards.pop() for _ in range(num_cards)]
 
-# deal 7 cards to player 1
-import random # use random to randomize deck
-random.shuffle(deck)
+    def draw_card(self):
+        return self.cards.pop(0) if self.cards else None
 
-player_1_hand = deck[:7] # player 1 gets dealt the first 7 cards
-player_2_hand = deck[7:14] # player 2 gets dealt cards 8-14
-stock_pile = deck[14:] # stock pile is the remaining cards left
+deck = Deck()
+deck.shuffle()
+
+player_1_hand = deck.deal(7) # player 1 gets dealt the first 7 cards
+player_2_hand = deck.deal(7) # player 2 gets dealt cards 8-14
+stock_pile = deck.cards # stock pile is the remaining cards left
 
 # clears the screen of displaying cards
 #def clear_console():
